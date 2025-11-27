@@ -1,71 +1,104 @@
 <?php
 include 'includes/header.php';
 
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
+if (!isset($_SESSION['matk'])) {
+    echo "<script>alert('Bạn cần đăng nhập để xem giỏ hàng!');window.location='login.php';</script>";
+    exit;
 }
+$matk = $_SESSION['matk'];
 
+// ==================== XỬ LÝ CÁC ACTION ====================
 $action = $_GET['action'] ?? null;
 $masp = $_GET['masp'] ?? null;
 
-if ($action === 'add' && $masp) {
-    $_SESSION['cart'][$masp] = ($_SESSION['cart'][$masp] ?? 0) + 1;
-    header("Location: cart.php");
-    exit;
-}
-
+// --- Xoá 1 sản phẩm ---
 if ($action === 'remove' && $masp) {
-    unset($_SESSION['cart'][$masp]);
-    header("Location: cart.php");
+    $conn->query("DELETE FROM giohang WHERE matk='$matk' AND masp='$masp'");
+    echo "<script>alert('Đã xóa sản phẩm khỏi giỏ hàng!');window.location='cart.php';</script>";
     exit;
 }
 
+// --- Xóa toàn bộ giỏ hàng ---
 if ($action === 'clear') {
-    $_SESSION['cart'] = [];
-    header("Location: cart.php");
+    $conn->query("DELETE FROM giohang WHERE matk='$matk'");
+    echo "<script>alert('Đã xóa toàn bộ giỏ hàng!');window.location='cart.php';</script>";
     exit;
 }
 
+// --- Cập nhật số lượng ---
 if ($action === 'update' && !empty($_POST['qty'])) {
-    foreach ($_POST['qty'] as $id => $q) {
-        $q = max(0, (int)$q);
-        if ($q == 0) {
-            unset($_SESSION['cart'][$id]);
-        } else {
-            $_SESSION['cart'][$id] = $q;
-        }
+    foreach ($_POST['qty'] as $id => $soluong) {
+        $soluong = max(1, (int)$soluong);
+
+        $conn->query("
+            UPDATE giohang 
+            SET soluong = $soluong 
+            WHERE matk='$matk' AND masp='$id'
+        ");
     }
-    header("Location: cart.php");
+
+    echo "<script>alert('Cập nhật giỏ hàng thành công!');window.location='cart.php';</script>";
     exit;
 }
+
+// ==================== LẤY DỮ LIỆU GIỎ HÀNG ====================
+$sql = "
+SELECT g.*, s.tensp, s.giasp, s.khuyenmai, s.hinhanh
+FROM giohang g
+JOIN sanpham s ON g.masp = s.masp
+WHERE g.matk = '$matk'
+";
+$result = $conn->query($sql);
 
 $items = [];
-$total = 0;
+while ($row = $result->fetch_assoc()) {
+    $gia = (float)$row['giasp'];
+    $km = (float)$row['khuyenmai'];
+    $gia_km = $km > 0 ? $gia * (1 - $km) : $gia;
 
-if (!empty($_SESSION['cart'])) {
-    $ids = array_keys($_SESSION['cart']);
-    $placeholders = implode(',', array_fill(0, count($ids), '?'));
-    $types = str_repeat('s', count($ids));
-
-    $stmt = $conn->prepare("SELECT * FROM sanpham WHERE masp IN ($placeholders)");
-    $stmt->bind_param($types, ...$ids);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $qty = $_SESSION['cart'][$row['masp']];
-        $gia = (float)$row['giasp'];
-        $km = (float)$row['khuyenmai'];
-        $gia_km = $km > 0 ? $gia * (1 - $km) : $gia;
-        $row['qty'] = $qty;
-        $row['subtotal'] = $gia_km * $qty;
-        $items[] = $row;
-        $total += $row['subtotal'];
-    }
-    $stmt->close();
+    $row['dongia'] = $gia_km;
+    $row['thanhtien'] = $gia_km * $row['soluong'];
+    $items[] = $row;
 }
 ?>
 
-<div class="container mt-4">
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng</title>
+    
+    <style>
+        .qty-control {
+    display: flex;
+    align-items: center;
+    width: 120px;
+}
+
+.qty-btn {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #ddd;
+    background: #f5f5f5;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.qty-input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ddd;
+    height: 35px;
+    margin: 0 5px;
+    font-size: 18px;
+}
+
+    </style>    
+
+</head>
+<body>
+    <div class="container mt-4">
     <h4 class="fw-bold mb-3">Giỏ hàng của bạn</h4>
 
     <?php if (empty($items)): ?>
@@ -75,16 +108,19 @@ if (!empty($_SESSION['cart'])) {
             <table class="table align-middle">
                 <thead>
                 <tr>
+                     <th>Chọn</th>   <!-- THÊM -->
                     <th>Sản phẩm</th>
                     <th>Đơn giá</th>
                     <th width="120">Số lượng</th>
                     <th>Thành tiền</th>
-                    <th></th>
+                    <th>Thao tác</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($items as $it): ?>
                     <tr>
+                        <tr data-masp="<?php echo $it['masp']; ?>" data-gia="<?php echo $gia_km; ?>">
+                        <td><input type="checkbox" class="chonsp"></td>  <!-- THÊM DÒNG NÀY -->
                         <td>
                             <div class="d-flex align-items-center">
                                 <img src="<?php echo htmlspecialchars($it['hinhanh']); ?>"
@@ -102,10 +138,16 @@ if (!empty($_SESSION['cart'])) {
                             echo number_format($gia_km, 0, ',', '.'); ?> đ
                         </td>
                         <td>
-                            <input type="number" name="qty[<?php echo $it['masp']; ?>]"
-                                   class="form-control form-control-sm"
-                                   value="<?php echo $it['qty']; ?>" min="0">
+                            <div class="qty-control">
+                                <button type="button" class="qty-btn minus">-</button>
+                                    <input type="text" 
+                                           name="qty[<?php echo $it['masp']; ?>]" 
+                                           class="qty-input"
+                                           value="<?php echo $it['qty']; ?>" />
+                                <button type="button" class="qty-btn plus">+</button>
+                            </div>
                         </td>
+
                         <td><?php echo number_format($it['subtotal'], 0, ',', '.'); ?> đ</td>
                         <td>
                             <a href="cart.php?action=remove&amp;masp=<?php echo urlencode($it['masp']); ?>"
@@ -117,7 +159,8 @@ if (!empty($_SESSION['cart'])) {
                 <tfoot>
                 <tr>
                     <th colspan="3" class="text-end">Tổng cộng:</th>
-                    <th><?php echo number_format($total, 0, ',', '.'); ?> đ</th>
+                   <!-- <th><?php echo number_format($total, 0, ',', '.'); ?> đ</th>-->
+                    <th><span id="tongtien">0</span> đ</th>
                     <th></th>
                 </tr>
                 </tfoot>
@@ -136,5 +179,42 @@ if (!empty($_SESSION['cart'])) {
         </form>
     <?php endif; ?>
 </div>
+<script>
+document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("plus")) {
+        let input = e.target.parentElement.querySelector(".qty-input");
+        input.value = parseInt(input.value) + 1;
+    }
 
+    if (e.target.classList.contains("minus")) {
+        let input = e.target.parentElement.querySelector(".qty-input");
+        let value = parseInt(input.value);
+        if (value > 0) input.value = value - 1;
+    }
+});
+//tính tổng tiền
+function tinhTien() {
+    let tong = 0;
+
+    document.querySelectorAll("tr[data-masp]").forEach(row => {
+        let checkbox = row.querySelector(".chonsp");
+        if (checkbox.checked) {
+            let gia = parseFloat(row.dataset.gia);
+            let soluong = parseInt(row.querySelector(".qty-input").value);
+            tong += gia * soluong;
+        }
+    });
+
+    document.getElementById("tongtien").innerText = tong.toLocaleString();
+}
+
+document.addEventListener("change", function(e) {
+    if (e.target.classList.contains("chonsp") ||
+        e.target.classList.contains("qty-input")) {
+        tinhTien();
+    }
+});
+</script>
 <?php include 'includes/footer.php'; ?>
+</body>
+</html>
