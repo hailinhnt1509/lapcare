@@ -1,0 +1,208 @@
+/* Reset nhẹ cho đồng đều */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    /* Nền tổng thể kiểu văn phòng / công nghệ */
+    background-color: #0b1120;
+    background-image:
+        radial-gradient(circle at 0% 0%, rgba(148, 163, 184, 0.25), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.20), transparent 55%),
+        linear-gradient(135deg, #020617 0%, #020617 40%, #030712 100%);
+    background-attachment: fixed;
+    color: #111827;
+}
+
+/* Khối nội dung chính trên trang chủ như một "thẻ" nổi trên nền */
+.container.mt-4 {
+    background-color: #f9fafb;
+    border-radius: 20px;
+    padding: 24px 24px 32px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.35);
+}
+
+/* Banner Lapcare – gradient đỏ cam + chút ánh sáng */
+.banner-lapcare {
+    background:
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,0.18), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(255,255,255,0.12), transparent 55%),
+        linear-gradient(120deg, #e53935, #ff7043, #ffb300);
+    color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Phần giới thiệu Lapcare */
+.intro-lapcare .intro-text {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    line-height: 1.6;
+}
+
+.intro-lapcare .intro-card {
+    background: linear-gradient(145deg, #ffffff, #fbe9e7);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Card sản phẩm */
+.product-card img {
+    height: 180px;
+    object-fit: cover;
+}
+
+.product-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* --- HERO BANNER --- */
+.hero-lapcare {
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.hero-lapcare .hero-img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+    border-radius: 18px;
+}
+
+/* NỀN HÌNH ẢNH CUỐI TRANG */
+.footer-bg {
+    background-image: url('../images/footer.png');  /* đổi tên theo ảnh bạn lưu */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border-radius: 14px;
+    padding-top: 70px !important;
+    padding-bottom: 70px !important;
+
+    color: #fff !important;
+}
+
+/* Chỉnh chữ footer để nổi trên nền 
+.footer-bg h6,
+.footer-bg p,
+.footer-bg a,
+.footer-bg .text-muted {
+    color: #ffffff !important;
+}*/
+
+
+
+/* ================= FLASH SALE ================= */
+
+/* CARD FLASH SALE */
+.flash-item {
+    background: #ffffff;
+    color: #111827;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flash-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.3);
+}
+
+.flash-item img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: contain;   /* tránh méo hình, tránh tràn ra ngoài */
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+
+.flash-item .name {
+    font-size: 14px;
+    font-weight: 500;
+    min-height: 40px;      /* để các card không bị nhảy chiều cao */
+}
+
+.flash-item .price-sale {
+    color: #dc2626;
+    font-weight: 700;
+    margin: 0;
+}
+
+.flash-item .price-original {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.flash-item .badge-km {
+    background: #ef4444;
+    color: #fff;
+    border-radius: 999px;
+    padding: 1px 6px;
+    font-size: 11px;
+    margin-left: 4px;
+}
+
+/* Hiệu ứng xuất hiện */
+@keyframes flash-enter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Bỏ margin âm của .row để không bị tràn khung */
+.flash-sale .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Giữ khoảng cách đều cho từng cột */
+.flash-sale .col {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+/* Khung flash sale */
+.flash-sale {
+    background: linear-gradient(90deg, #ff4b8b, #ff7a5c);
+    border-radius: 18px;
+    padding: 16px 24px 22px;
+    color: #fff;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    animation: flash-enter 0.5s ease-out;
+
+    /* ĐỂ KHÔNG DÍNH SÁT VIỀN KHỐI TRẮNG, KHÔNG BỊ TRÀN */
+    margin: 0 0 24px;   /* bám theo padding của .container.mt-4 */
+
+    overflow: hidden;
+}
+
+/* Nếu muốn card khác trong flash-sale (ví dụ .card Bootstrap) cũng nổi lên */
+.flash-sale .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
