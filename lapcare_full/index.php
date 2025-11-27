@@ -295,6 +295,4 @@ $flashEndTime = time() + 30 * 24 * 60 * 60;
     const timer = setInterval(updateCountdown, 1000);
 })();
 </script>
-
-
 <?php include 'includes/footer.php'; ?>

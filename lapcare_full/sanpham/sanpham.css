@@ -1,0 +1,580 @@
+/* ===================== BANNER ===================== */
+/* ===================== BANNER (ảnh 1920 x 420) ===================== */
+.banner-slide {
+    width: 100%;
+    max-width: 2920px;
+    height: 420px;         
+    margin: 2px;
+    border-radius: 20px;
+    overflow: hidden;
+
+}
+
+.banner-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #f9f9f9;
+}
+
+
+
+/* ===================== CHỌN NHU CẦU ===================== */
+/* Tiêu đề chọn theo nhu cầu */
+.nhucau-title {
+    font-size: 22px;
+    font-weight: 600;
+   /* margin: 20px 0 10px 0;*/
+    margin-top: -10px;
+        display: block;
+    width: 100%;
+    
+
+}
+
+/* Khung item */
+.nhucau-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;                 /* khoảng cách giữa các ô */
+    margin-right: 250px;
+    margin-top: -15px;
+    flex-wrap: wrap;
+}
+
+/* Item */
+.nhucau-item {
+    background: #ffffff;
+    width: 150px;
+    text-align: center;
+    padding: 16px 10px;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: 0.25s;
+    border: 1px solid #eee;
+}
+
+.nhucau-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(122, 13, 200, 0.15);
+}
+
+/* Hình */
+.nhucau-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+/* Chữ */
+.nhucau-item p {
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0;
+}
+
+
+/* ================= PILLOW FILTER ================= */
+.filter-criteria {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.filter-item {
+    position: relative;
+    background: #f3f3f3;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: 0.25s;
+}
+
+.filter-item:hover {
+    background: #ececff;
+    border-color: #6A5AF8;
+}
+
+.filter-item select {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Ẩn mũi tên mặc định */
+.filter-item select::-ms-expand {
+    display: none;
+}
+
+.filter-item select {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Icon mũi tên */
+.filter-item::after {
+    content: "▾";
+    font-size: 12px;
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+}
+/* ======= THANH FILTER PILL ======= */
+.filter-topbar {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    
+   /* border: 1px solid #333;*/
+}
+
+.filter-pill {
+    background: #ffffff;
+    padding: 0px 15px;
+    
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.25s;
+}
+
+.filter-pill:hover {
+    background: #e6e6ff;
+}
+
+.filter-pill .icon {
+    width: 18px;
+}
+.filter-pill .icon {
+    width: 22px;
+    height: 22px;
+}
+.brand-icon {
+    width: 28px;
+    height: 28px;
+}
+
+
+/* ======= POPUP FILTER ======= */
+.filter-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.55);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-modal-content {
+    background: white;
+    width: 70%;
+    max-height: 85%;
+    overflow-y: auto;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.filter-modal-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.filter-close {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.filter-section h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.filter-grid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    
+}
+
+.filter-option {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .25s;
+    background: #fafafa;
+}
+
+.filter-option img {
+    width: 50px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.filter-option:hover {
+    border-color: #6A5AF8;
+    background: #f1f0ff;
+}
+
+.filter-price-btn {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.filter-price-btn:hover {
+    background: #eef;
+    border-color: #6A5AF8;
+}
+
+.filter-type {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-type img {
+    width: 26px;
+    height: 26px;
+}
+
+.apply-btn {
+    width: 100%;
+    background: #6A5AF8;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* ================= SORT BUTTON ================= */
+
+.sort-box {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+   /* border: 1px solid #333;*/
+}
+
+.sort-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: #f3f3f3;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    border: 1px solid transparent;
+    transition: 0.2s;
+    
+}
+
+.sort-btn:hover {
+    background: #ececff;
+    border-color: #6A5AF8;
+    color: #6A5AF8;
+}
+
+/* Active */
+.sort-btn.active {
+    background: #6A5AF8;
+    color: white;
+}
+
+
+/* ========== GRID 4 SẢN PHẨM / HÀNG ========== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px)  { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ========== CARD SẢN PHẨM ========== */
+.product-item {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #ececec;
+    padding: 15px;
+    transition: 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* Nhãn giảm giá */
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #e60000;
+    color: white;
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 6px;
+}
+
+/* Ảnh */
+.product-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+/* Tên */
+.product-item h5 {
+    height: 40px;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Hãng */
+.brand {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* Giá */
+.price {
+    color: #d10000;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.old-price {
+    font-size: 13px;
+    color: #888;
+    text-decoration: line-through;
+    margin-left: 6px;
+}
+
+/* 2 nút */
+.btn-group {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-buy {
+    flex: 1;
+    padding: 8px;
+    background: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    transition: .2s;
+}
+
+.btn-buy:hover { background: linear-gradient(45deg, #d70018, #baa9ff); }
+
+.btn-cart {
+    flex: 1;
+    padding: 8px;
+    background: #6A5AF9;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    transition: .2s;
+}
+
+.btn-cart:hover { background: #4c3cf1; }
+
+
+/* ===================== PHÂN TRANG ===================== */
+.pagination {
+    margin-top: 25px;
+ width: 100%;  
+    display: flex;
+    justify-content: center;    /* Căn giữa ngang */
+    align-items: center;        /* Căn giữa dọc (nếu cần) */
+    gap: 8px;                   /* Khoảng cách giữa các nút */
+}
+
+.pagination a {
+    padding: 9px 14px;
+    background: #eee;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #333;
+    transition: .2s;
+}
+
+/* Nút đang chọn */
+.pagination a.active {
+    background: #4b4bff;
+    color: white;
+}
+
+/* Hover */
+.pagination a:hover {
+    background: #d5d4ff;
+}
+
+/* ======= FEEDBACK BOX ======= */
+.feedback-box {
+    border: 2px solid #f4d140;
+    background: #fffdf3;
+    padding: 20px 25px;
+    border-radius: 14px;
+    margin: 40px auto;          /* Căn giữa */
+    
+    width: 50%;                 /* Nhỏ lại một chút */
+    max-width: 600px;           /* Không cho quá to */
+    min-width: 300px;           /* Không cho quá nhỏ */
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.fb-title {
+    font-size: 16px;
+    color: #555;
+    flex: 1;
+}
+
+.fb-options {
+    display: flex;
+    gap: 35px;
+}
+
+.fb-option {
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.fb-option .emoji {
+    display: block;
+    font-size: 38px;
+    margin-bottom: 5px;
+}
+
+.fb-option .label {
+    color: #e6b300;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.fb-option:hover {
+    transform: scale(1.1);
+}
+
+.fb-option.selected .label {
+    color: #ffaf00;
+}
+
+.fb-option.selected .emoji {
+    transform: scale(1.2);
+}
+
+/*----------------toop--------------*/
+/* Bao nút + tooltip */
+.cart-btn-wrapper {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Nút icon tròn */
+.btn-cart-icon {
+    width: 44px;
+    height: 44px;
+    background: #4B0082;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f9f8fa;
+    font-size: 18px;
+    transition: .25s ease;
+    text-decoration: none;
+}
+
+.btn-cart-icon:hover {
+    background: #e3e3e3;
+    transform: translateY(-2px);
+}
+
+/* Tooltip mới */
+.tooltip {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: rgba(0, 0, 0, 0.80);
+    backdrop-filter: blur(4px);
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+}
+
+/* Mũi tên mềm */
+.tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.80) transparent transparent transparent;
+}
+
+/* Hover hiện tooltip */
+.cart-btn-wrapper:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
